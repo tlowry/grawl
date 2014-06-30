@@ -3,4 +3,3 @@
 /*
 grawl document
 */
-package main
