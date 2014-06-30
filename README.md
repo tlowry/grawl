@@ -1,6 +1,10 @@
 grawl
 =====
 
+```sh
+go get github.com/tlowry/grawl/...
+```
+
 A simple web scrape client for go
 
 ```Go
