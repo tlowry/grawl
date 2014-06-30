@@ -6,7 +6,7 @@ package browser
 
 import (
 	"fmt"
-	"github.com/tlowryie/grawl/element"
+	"github.com/tlowry/grawl/element"
 	"log"
 	"net/http"
 	"net/http/cookiejar"

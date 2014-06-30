@@ -1,7 +1,7 @@
 package element
 
 import (
-	"github.com/tlowryie/grawl/util"
+	"github.com/tlowry/grawl/util"
 	"regexp"
 )
 

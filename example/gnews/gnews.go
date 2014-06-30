@@ -1,7 +1,7 @@
 package main
 
 import (
-	"github.com/tlowryie/grawl/browser"
+	"github.com/tlowry/grawl/browser"
 	"log"
 )
 

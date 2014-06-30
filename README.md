@@ -7,8 +7,8 @@ A simple web scrape client for go
 package main
 
 import (
-	"github.com/tlowryie/grawl/browser"
-	"github.com/tlowryie/grawl/element"
+	"github.com/tlowry/grawl/browser"
+	"github.com/tlowry/grawl/element"
 	"log"
 	"runtime/debug"
 	"strings"

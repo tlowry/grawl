@@ -1,8 +1,8 @@
 package main
 
 import (
-	"github.com/tlowryie/grawl/browser"
-	"github.com/tlowryie/grawl/util"
+	"github.com/tlowry/grawl/browser"
+	"github.com/tlowry/grawl/util"
 	"log"
 	"runtime/debug"
 )
