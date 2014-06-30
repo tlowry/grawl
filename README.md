@@ -1,16 +1,12 @@
-grawl
+grawl : A simple web scrape client for go
 =====
 
-A simple web scrape client for go
----------------------
+###To Install:
 
-To Install:
----------------------
 ```sh
 go get github.com/tlowry/grawl/...
 ```
-Build the examples:
----------------------
+###Build the examples:
 ```sh
 go build github.com/tlowry/grawl/...
 ``
