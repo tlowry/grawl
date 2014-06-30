@@ -1,4 +1,4 @@
-grawl : A simple web scrape client for go
+grawl : a simple web scrape client for go
 =====
 
 ###To Install:
@@ -11,6 +11,8 @@ go get github.com/tlowry/grawl/...
 ```sh
 go build github.com/tlowry/grawl/...
 ```
+
+### Search the web for a popular character and save the page we find to disk:
 
 ```Go
 package main
