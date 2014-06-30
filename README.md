@@ -1,11 +1,15 @@
 grawl
 =====
+A simple web scrape client for go
 
+To Install
 ```sh
 go get github.com/tlowry/grawl/...
 ```
-
-A simple web scrape client for go
+To build the examples:
+```sh
+go build github.com/tlowry/grawl/...
+``
 
 ```Go
 package main
