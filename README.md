@@ -6,10 +6,11 @@ grawl : A simple web scrape client for go
 ```sh
 go get github.com/tlowry/grawl/...
 ```
+
 ###Build the examples:
 ```sh
 go build github.com/tlowry/grawl/...
-``
+```
 
 ```Go
 package main
