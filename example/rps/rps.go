@@ -18,6 +18,8 @@ func main() {
 	conn := browser.NewBrowser()
 
 	page := conn.Load("rockpapershotgun.com")
+	//page.Absolutify()
+	page.SaveToFile("rps.html")
 	posts := page.AllById(`post-*[0-9]`)
 
 	for _, post := range posts {
@@ -31,6 +33,7 @@ func main() {
 		for _, p := range paras {
 
 			if !util.IsWhiteSpace(p.GetContent()) {
+				log.Println("**")
 				log.Println(p.GetContent())
 			}
 		}

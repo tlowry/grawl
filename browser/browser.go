@@ -67,6 +67,8 @@ func (b *Browser) SubmitForm(form *element.Form) *element.Page {
 
 	if method == "" || len(method) < 1 {
 		method = "POST"
+	} else {
+		method = "GET"
 	}
 
 	action := b.RelToAbs(form.Action())
@@ -80,10 +82,35 @@ func (b *Browser) SubmitForm(form *element.Form) *element.Page {
 		}
 	}
 
+	for _, in := range form.GetSelects() {
+		if len(in.GetAttribute("name")) > 0 {
+			vals.Set(in.GetAttribute("name"), in.GetAttribute("value"))
+		}
+	}
+
+	for x := range vals {
+		fmt.Println(x, "=", vals[x])
+	}
+
 	// build the request using the method, action and form values
 	var resp *http.Response
 
-	req, err := http.NewRequest(strings.ToUpper(form.Method()), action, strings.NewReader(vals.Encode()))
+	var body *strings.Reader = nil
+
+	if method == "POST" {
+		body = strings.NewReader(vals.Encode())
+	} else {
+		action = action + "?" + vals.Encode()
+	}
+
+	var req *http.Request
+	var err error
+	if body == nil {
+		req, err = http.NewRequest(strings.ToUpper(method), action, nil)
+	} else {
+		req, err = http.NewRequest(strings.ToUpper(method), action, body)
+	}
+
 	if err != nil {
 		panic(err)
 	}
@@ -91,13 +118,13 @@ func (b *Browser) SubmitForm(form *element.Form) *element.Page {
 	req.Header.Set("User-Agent", b.GetUserAgent())
 	req.Header.Set("Content-Type", "application/x-www-form-urlencoded")
 
-	log.Println("Sending request")
+	log.Println("Sending request " + action)
 	resp, err = b.Client.Do(req)
 	log.Println("Request sent")
 	if err != nil {
 		panic(err)
 	}
-	log.Println("parsing")
+
 	page := element.ParseResp(resp)
 	log.Println("parsed")
 	return page
@@ -123,9 +150,9 @@ func (b *Browser) Load(url string) *element.Page {
 	}
 
 	page := element.ParseResp(resp)
+	page.SetUrl(url)
 
 	return page
-
 }
 
 // Load a page from a local file

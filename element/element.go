@@ -273,14 +273,14 @@ func (e *BaseElement) AllById(id string) []Element {
 
 /*
 	Return the first element found with the given
-	id.
+	class name.
 
 	Example:
 	Find the first (usually only) search box div
 	box := elem.ByClass("info-container")
 */
 func (e *BaseElement) ByClass(class string) Element {
-	val, err := NewAttributeValidator("class", class)
+	val, err := NewAttributeValidator("class", "(^|.*\\s)"+class+"($|\\s.*)")
 	if err == nil {
 		return BFSFirst(e, *val)
 	}
@@ -297,7 +297,8 @@ func (e *BaseElement) ByClass(class string) Element {
 	elem := elem.AllByClass("info-result")
 */
 func (e *BaseElement) AllByClass(class string) []Element {
-	val, err := NewAttributeValidator("class", class)
+
+	val, err := NewAttributeValidator("class", "(^|\\s)"+class+"($|\\s)")
 
 	if err == nil {
 		return BFS(e, val)

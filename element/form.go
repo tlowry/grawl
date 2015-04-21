@@ -36,6 +36,24 @@ func (e *Form) GetInputs() []Element {
 	return []Element{}
 }
 
+func (e *Form) GetSelects() []Element {
+	val, err := NewTagValidator("select")
+	if err == nil {
+		return BFS(e, *val)
+	}
+
+	return []Element{}
+}
+
+func (e *Form) GetFields() []Element {
+	val, err := NewTagValidator("select|input")
+	if err == nil {
+		return BFS(e, *val)
+	}
+
+	return []Element{}
+}
+
 func (e *Form) Name() string {
 	return e.GetAttribute("name")
 }
@@ -50,20 +68,27 @@ func (e *Form) Action() string {
 
 // Todo consider letting users add fields not present
 func (e *Form) SetField(name, value string) {
-	for _, in := range e.GetInputs() {
+
+	for _, in := range e.GetFields() {
 		if in.GetAttribute("name") == name {
 			in.SetAttribute("value", value)
 			break
 		}
 	}
+
 }
 
 func (e *Form) GetField(name string) string {
-
-	for _, in := range e.GetInputs() {
+	for _, in := range e.GetFields() {
 		if in.GetAttribute("name") == name {
 			return in.GetAttribute("value")
 		}
 	}
 	return ""
+}
+
+func (e *Form) ClearFields() {
+	for _, in := range e.GetFields() {
+		in.SetAttribute("value", "")
+	}
 }

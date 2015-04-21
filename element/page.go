@@ -10,6 +10,7 @@ import (
 type Page struct {
 	Document *http.Response
 	root     Element
+	url      string
 }
 
 func NewPage() *Page {
@@ -36,6 +37,34 @@ func ParseBody(r io.Reader) *Page {
 	return parser.ParsePage(r)
 }
 
+func (p *Page) GetUrl() string {
+	return p.url
+}
+
+func (p *Page) SetUrl(url string) {
+	p.url = url
+}
+
+/*
+	Convert all relative links on this page to absolute links
+	(useful when saving a file to disk for later viewing)
+*/
+func (p *Page) Absolutify() {
+	if p.root != nil {
+		allLinks := p.root.AllByTag("a")
+
+		for _, link := range allLinks {
+			url := link.GetAttribute("href")
+			if url[0] == '/' {
+				link.SetAttribute("href", p.GetUrl()+"/")
+			}
+		}
+	}
+}
+
+/*
+	Blocking call to save this pages html content to a file
+*/
 func (p *Page) SaveToFile(fileName string) {
 	f, err := os.Create(fileName)
 	if err != nil {
